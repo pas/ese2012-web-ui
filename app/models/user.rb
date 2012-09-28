@@ -33,11 +33,11 @@
     end
 
     def create_item( name, price )
-      items.push(University::Item.create(self, name, price))
+      items.push(Item.create(self, name, price))
     end
 
     def remove_item( name )
-      self.items = items.map { |item| item.name == name ? nil : item } .compact
+      self.items = items.delete_if { |item| item.name == name }
     end
 
     def owns?( item_name )
