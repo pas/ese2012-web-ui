@@ -1,0 +1,7 @@
+%h1 We salute you #{name}
+
+%ul
+  - for user in users
+    - unless user.name == name
+      - for item in user.offers
+        %li{:class => nil} #{item.name}

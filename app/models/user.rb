@@ -20,7 +20,6 @@
     end
 
     def authenticate?(input)
-      puts "input: #{input}, password: " + self.password
       input == self.password
     end
 

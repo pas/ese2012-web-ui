@@ -15,6 +15,11 @@ class UserTest < Test::Unit::TestCase
     assert( user.name == 'John', 'User should have the name \'John\' but was \'' + user.name + '\'')
   end
 
+  def test_should_have_password
+    user = get_user_john
+    assert( user.password == 'john', 'User should have the password \'John\' but was \'' + user.password + '\'')
+  end
+
   def test_should_have_100_credits
     user = get_user_john
     assert( user.credits  == 100, 'User should have 100 credits but has \'' + user.credits.to_s + '\'')
