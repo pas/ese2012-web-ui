@@ -1,7 +1,13 @@
-%h1 We salute you #{name}
+%h1 We salute you #{user.name}!
+%h2 You have got #{user.credits} Credits
 
 %ul
-  - for user in users
-    - unless user.name == name
-      - for item in user.offers
-        %li{:class => nil} #{item.name}
+  - for seller in users
+    - unless seller.name == user.name
+      - for item in seller.offers
+        %li{:class => nil}
+          #{item.name}, #{item.price} Credits from
+          %a{:href=>item.owner.name}#{item.owner.name}
+          ,
+          %a{:href => "/buy?buyer=#{user.name}&product=#{item.name}&seller=#{seller.name}"} (Buy)
+%a{:href => "/logout"} Logout

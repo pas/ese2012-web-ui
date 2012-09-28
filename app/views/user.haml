@@ -1,0 +1,7 @@
+%h1 #{name}'s treasures
+
+%ul
+  - for item in user.items
+    %li{:class => nil}
+      #{item.name}, #{item.price} Credits,
+      %a{:href=>item.owner.name} Buy

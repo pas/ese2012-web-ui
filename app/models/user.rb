@@ -62,14 +62,11 @@
       item = self.items.select { |item| item.name == item_name }.pop
 
       if item.nil?
-        puts "Transaction failed because #{name} does not own \'#{item_name}\'"
-        return FALSE
+        fail "Transaction failed because #{name} does not own \'#{item_name}\'"
       elsif ! item.is_active?
-        puts "Transaction failed because #{name} does not sale \'#{item_name}\'"
-        return FALSE
+        fail "Transaction failed because #{name} does not sale \'#{item_name}\'"
       elsif buyer.credits < item.price
-        puts "Transaction failed because #{buyer.name} does not have enough money"
-        return FALSE
+        fail "Transaction failed because #{buyer.name} does not have enough money"
       end
 
       buyer.credits -= item.price
@@ -77,7 +74,6 @@
       self.items.delete(item)
       buyer.add_item(item)
       item.owner = buyer
-      TRUE
     end
 
     def add_item( item )
