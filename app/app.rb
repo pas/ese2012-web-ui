@@ -11,7 +11,7 @@ class App < Sinatra::Base
   use Authentication
   use Main
 
-  enable :sessions
+  enable :sessions unless ENV['RACK_ENV'] == 'test'
 
   configure :development do
     bart = User.named('Bart' , 'bart')
@@ -39,4 +39,4 @@ class App < Sinatra::Base
   end
 end
 
-App.run!
+App.run! unless ENV['RACK_ENV'] == 'test'
