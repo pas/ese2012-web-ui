@@ -89,7 +89,7 @@ class UserTest < Test::Unit::TestCase
     frodo.create_item('ring', 200)
     frodo.offer('ring')
 
-    assert(!frodo.sell('ring', sam), 'Frodo should not sell ring')
+    assert_raise(RuntimeError) { frodo.sell('ring', sam) }
     assert(!sam.owns?('ring'), 'Sam shouldn\'t own the ring now')
     assert(frodo.owns?('ring'), 'Frodo shouldn\'t own the ring anymore')
     assert(sam.credits == 100, 'Sam should not pay credits')
@@ -103,7 +103,7 @@ class UserTest < Test::Unit::TestCase
     frodo.create_item('ring', 200)
     frodo.offer('ring')
 
-    assert(!frodo.sell('sword', sam), 'Frodo should not sell ring')
+    assert_raise(RuntimeError) { frodo.sell('sword', sam) }
     assert(!sam.owns?('sword'), 'Sam shouldn\'t own a sword now!')
     assert(!sam.owns?('ring'), 'Sam shouldn\'t own the ring now!')
     assert(frodo.owns?('ring'), 'Frodo shouldn\'t own the ring anymore!')
