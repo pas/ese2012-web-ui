@@ -8,12 +8,14 @@ require 'haml'
 
 class App < Sinatra::Base
 
-  enable :sessions
-
   use Authentication
   use Main
+
+  enable :sessions
 
   configure :development do
     User.named('John' , 'john').save
   end
 end
+
+App.run!

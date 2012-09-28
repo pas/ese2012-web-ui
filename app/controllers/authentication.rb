@@ -1,9 +1,10 @@
 require 'rubygems'
 require 'require_relative'
 require 'sinatra'
+require 'haml'
 require '../app/models/user'
 
-class Authentication
+class Authentication < Sinatra::Application
   get '/login' do
     haml :login
   end
@@ -18,13 +19,11 @@ class Authentication
     else
       if user.authenticate?(password)
         "Bravo, you're logged in"
+        session[:name] = name
+        redirect '/home'
       else
         "You are a hacker!"
       end
     end
-  end
-
-  get '/*' do
-    redirect '/login'
   end
 end
