@@ -81,7 +81,7 @@
     end
 
     
-    # activates item with name "name".
+    # Activates item with name "name".
     # Only an activated item may be bought by an other user.
     def offer( name )
       self.items.each { |item| item.name == name ? item.activate : nil }
