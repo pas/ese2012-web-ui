@@ -1,3 +1,9 @@
+  # An instance of Item is owned by exactly one instance of User.
+  # Items are identified by their name.
+  # Items can be bought and sold by between different users.
+  # The price of an Item is payed by the buyer with credits.
+  #
+  # A new Item should be instantiated by calling the method self.create.
 
   class Item
     # generate getter and setter for name and grades
@@ -14,7 +20,10 @@
       fail 'Missing price for ' + self if (self.price == nil)
     end
 
-    # factory method (constructor) on the class
+    # factory method (constructor) on the class Item
+    # @param [User] owner
+    # @param [String] name
+    # @param [Float] price
     def self.create( owner, name, price )
       item = self.new
       item.name = name

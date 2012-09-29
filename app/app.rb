@@ -11,6 +11,7 @@ class App < Sinatra::Base
   use Authentication
   use Main
 
+  #TODO what's that?
   enable :sessions unless ENV['RACK_ENV'] == 'test'
 
   configure :development do

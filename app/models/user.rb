@@ -2,6 +2,11 @@
   require 'require_relative'
   require '../app/models/item'
 
+  # An instance of User represents a person that owns, sells or buys
+  # Items of other Users.
+  # An instance User is identified through its name.
+  #
+  # @@users contains all users.
   class User
 
     INITIAL_CREDIT = 100
@@ -30,6 +35,9 @@
       user
     end
 
+    # Checks if input == password of this User.
+    #
+    # @param [String] input
     def authenticate?(input)
       input == self.password
     end
@@ -38,27 +46,43 @@
       self.items = Array.new
     end
 
+    # String representation of an user, giving its name and
+    # the amount of credit.
+    #
+    # Example: "John 100"
     def to_s
       "#{name} #{credits}"
     end
 
+    # Creates a new Item and adds it to this Users list.
+    # A newly created Item is initially inactive.
+    #
+    # @return [String] name of item.
+    # @param [Float] price of item.
     def create_item( name, price )
       items.push(Item.create(self, name, price))
 
       self.invariant
     end
 
+    # Removes (all) item(s) with name "name" from @items.
+    #
+    # @return [String] name of item.
     def remove_item( name )
       self.items = items.delete_if { |item| item.name == name }
 
       self.invariant
     end
 
-    def owns?( item_name )
-       item = self.items.select { |item| item.name == item_name }.pop
+    # @param [String] name of item.
+    def owns?( name )
+       item = self.items.select { |item| item.name == name }.pop
        !item.nil? && item.owner == self
     end
 
+    
+    # TODO I dont understand this method...
+    # Are all items just activated?
     def offer( name )
       self.items.each { |item| item.name == name ? item.activate : nil }
     end
@@ -67,11 +91,14 @@
       self.items.select { |item| item.is_active? }
     end
 
+
     def sells?( item_name )
       item = self.items.detect { |item| item.name == item_name }
       !item.nil? && item.is_active?
     end
 
+    # @param [String] item_name
+    # @param [User] buyer
     def sell( item_name, buyer)
       item = self.items.select { |item| item.name == item_name }.pop
 
@@ -93,6 +120,7 @@
       self.invariant
     end
 
+    # @param [Item] item
     def add_item( item )
       self.items.push(item)
 
@@ -103,6 +131,8 @@
       @@users
     end
 
+    # @param [String] name
+    # @return [User] first found user
     def self.by_name name
       @@users.detect {|user| user.name == name }
     end
