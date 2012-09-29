@@ -1,3 +1,6 @@
+# Helper class from original sinatra-tests
+# https://github.com/sinatra/sinatra/tree/master/test
+
 ENV['RACK_ENV'] = 'test'
 Encoding.default_external = "UTF-8" if defined? Encoding
 

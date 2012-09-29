@@ -1,7 +1,13 @@
-%h1 #{name}'s treasures
+%h1 #{user.name}'s treasures
 
 %ul
   - for item in user.items
     %li{:class => nil}
       #{item.name}, #{item.price} Credits,
-      %a{:href=>item.owner.name} Buy
+      - if item.is_active?
+        %a{:href=>"/buy?seller=#{user.name}&product=#{item.name}&buyer=#{name}"}
+          (Buy)
+      - else
+        %i
+          (inactive)
+%a{:href => "/logout"} Logout
