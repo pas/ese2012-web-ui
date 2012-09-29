@@ -74,8 +74,8 @@ class UserTest < Test::Unit::TestCase
 
     frodo.create_item('ring', 50)
     frodo.offer('ring')
+    frodo.sell('ring', sam)
 
-    assert(frodo.sell('ring', sam), 'Frodo should sell ring')
     assert(sam.owns?('ring'), 'Sam should own the ring now')
     assert(!frodo.owns?('ring'), 'Frodo shouldn\'t onw the ring anymore')
     assert(sam.credits == 50, 'Sam should pay 50 credits')
