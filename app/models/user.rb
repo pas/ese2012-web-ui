@@ -76,7 +76,7 @@
     # @return [String] name of item.
     def remove_item( name )
       fail 'Name not defined' if name == nil
-      fail 'Object does not exist' if items.detect{ |item| item.name == name }==nil
+      fail 'Item does not exist' if items.detect{ |item| item.name == name }==nil
 
       self.items = items.delete_if { |item| item.name == name }
 
@@ -95,9 +95,11 @@
     end
 
     
-    # Activates item with name "name".
-    # Only an activated item may be bought by an other user.
+    # Activates item. Only an activated item may be
+    # bought by an other user.
     def offer( name )
+      fail 'Name of item not defined' if ( name == nil )
+
       self.items.detect{ |item| item.name == name}.activate
     end
 
@@ -106,9 +108,11 @@
       self.items.select { |item| item.is_active? }
     end
 
-    # Checks if item with name "item_name" is for sale.
-    # (for testing purpose only)
+    # Returns true if user posses item and item is for sale.
+    # @param[String] item_name of item to check
     def sells?( item_name )
+      fail 'Name of item not defined' if ( item_name == nil )
+
       item = self.items.detect { |item| item.name == item_name }
       !item.nil? && item.is_active?
     end
@@ -129,6 +133,10 @@
     # @param [String] item_name
     # @param [User] buyer
     def sell( item_name, buyer)
+      fail 'No item name defined' if (item_name == nil)
+      fail 'No user defined' if (buyer == nil)
+      fail 'Can\'t sell items to itself' if (buyer == self)
+
       item = self.items.select { |item| item.name == item_name }.pop
 
       if item.nil?
@@ -149,8 +157,12 @@
       self.invariant
     end
 
+    # Adds item to the stock of the user.
     # @param [Item] item to be added.
     def add_item( item )
+      fail 'Item not defined' if (item == nil)
+      fail 'Item does not belong to user' unless (item.owner==self)
+
       self.items.push(item)
 
       self.invariant
