@@ -81,22 +81,37 @@
     end
 
     
-    # TODO I dont understand this method...
-    # Are all items just activated?
+    # activates item with name "name".
+    # Only an activated item may be bought by an other user.
     def offer( name )
       self.items.each { |item| item.name == name ? item.activate : nil }
     end
 
-    def offers()
+    # Returns all active items of this user.
+    def offers
       self.items.select { |item| item.is_active? }
     end
 
-
+    # Checks if item with name "item_name" is for sale.
+    # (for testing purpose only)
     def sells?( item_name )
       item = self.items.detect { |item| item.name == item_name }
       !item.nil? && item.is_active?
     end
 
+    # A transaction of selling an item may fail for the following
+    # reasons:
+    #
+    # - The seller (self) does not own an item with name "item_name"
+    # - The item with name "item_name" is not activated and therefore
+    # not for sale
+    # - The buyer has less credit than the price of the item.
+    #
+    # If none of this fails, then the transaction takes place. The price
+    # of the item is payed by the buyer to the seller (self) and the ownership
+    # of the item is changed accordingly. Additionally the items status is
+    # set back to inactive.
+    #
     # @param [String] item_name
     # @param [User] buyer
     def sell( item_name, buyer)
@@ -120,7 +135,7 @@
       self.invariant
     end
 
-    # @param [Item] item
+    # @param [Item] item to be added.
     def add_item( item )
       self.items.push(item)
 
@@ -131,12 +146,15 @@
       @@users
     end
 
-    # @param [String] name
-    # @return [User] first found user
+    # Class method.
+    #
+    # @param [String] name of user.
+    # @return [User] first found user.
     def self.by_name name
       @@users.detect {|user| user.name == name }
     end
 
+    # Add an self to users.
     def save
       @@users << self
     end
