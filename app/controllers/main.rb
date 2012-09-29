@@ -18,6 +18,10 @@ class Main < Sinatra::Application
     haml :home, :locals => { :user => User.by_name(session[:name]), :users => User.all }
   end
 
+  get '/items' do
+    haml :my_items, :locals => { :user => User.by_name(session[:name]), :items => User.by_name(session[:name]).items}
+  end
+
   post '/buy' do
     buyer = User.by_name(params[:buyer])
     seller = User.by_name(params[:seller])

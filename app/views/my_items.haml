@@ -1,0 +1,11 @@
+%h1 We salute you #{user.name}!
+%h2 You have got #{items.size} items.
+
+%ul
+  - for item in items
+    %li #{item.name},
+    %i #{item.price} Credits
+
+
+%a{:href => "/logout"} Logout
+%a{:href => "/home"} home
