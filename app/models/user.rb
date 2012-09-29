@@ -26,6 +26,8 @@
 
     # factory method (constructor) on the class
     def self.named( name, password_new )
+      fail 'Name not defined' if name == nil
+
       user = self.new
       user.name = name
       user.password = password_new
@@ -58,8 +60,12 @@
     # A newly created Item is initially inactive.
     #
     # @return [String] name of item.
-    # @param [Float] price of item.
+    # @param [Float] (positiv) price of item.
     def create_item( name, price )
+      fail "Name not defined" if name == nil
+      fail "Price not defined" if price == nil
+      fail "Price can not be negative" if price < 0
+
       items.push(Item.create(self, name, price))
 
       self.invariant
@@ -69,14 +75,22 @@
     #
     # @return [String] name of item.
     def remove_item( name )
+      fail 'Name not defined' if name == nil
+      fail 'Object does not exist' if items.detect{ |item| item.name == name }==nil
+
       self.items = items.delete_if { |item| item.name == name }
 
       self.invariant
     end
 
+    # Returns true if the user posses the item with the
+    # given name.
     # @param [String] name of item.
     def owns?( name )
-       item = self.items.select { |item| item.name == name }.pop
+       fail 'Name not defined' if name == nil
+
+       item = self.items.detect{ |item| item.name == name }
+
        !item.nil? && item.owner == self
     end
 
@@ -84,7 +98,7 @@
     # Activates item with name "name".
     # Only an activated item may be bought by an other user.
     def offer( name )
-      self.items.each { |item| item.name == name ? item.activate : nil }
+      self.items.detect{ |item| item.name == name}.activate
     end
 
     # Returns all active items of this user.

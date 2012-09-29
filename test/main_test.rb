@@ -16,31 +16,19 @@ class MainTest < Test::Unit::TestCase
     App
   end
 
-  describe 'Main subclasses' do
+  describe 'Simple Tests' do
     class TestApp < App
       configure do
         bart = User.named('Bart' , 'bart')
         bart.create_item('Skateboard', 100)
-        bart.create_item('Elephant', 150)
-        bart.create_item('Knecht Ruprecht', 10)
-        bart.offer('Elephant')
         bart.offer('Skateboard')
 
         homer = User.named('Homer', 'homer')
         homer.create_item('Beer', 200)
-        homer.create_item('Nuclear Crisis', 100)
-        homer.create_item('Sofa', 50)
-        homer.offer('Nuclear Crisis')
-
-        ese = User.named('ese', 'ese')
-        ese.create_item('Introduction to Ruby', 100)
-        ese.create_item('Knowledge', 50)
-        ese.offer('Knowledge')
-        ese.offer('Introduction to Ruby')
+        homer.offer('Beer')
 
         bart.save
         homer.save
-        ese.save
       end
     end
 
@@ -48,11 +36,24 @@ class MainTest < Test::Unit::TestCase
       assert(! User.all.empty?, 'There should be test data!')
     end
 
-    it 'get /home' do
+    it 'should show login screen' do
+      get '/home', {}, 'rack.session' => { :name => nil }
+      assert last_response.redirect?
+      assert last_response.location.include?('/login')
+    end
+
+    it 'get /home as Bart' do
       get '/home', {}, 'rack.session' => { :name => 'Bart' }
-      puts last_response.body
       assert last_response.ok?
-      assert last_response.body.include?('Bart')
+      assert last_response.body.include?('We salute you Bart'), "Should salute bart"
+      assert last_response.body.include?('Beer, 200 Credits'), "Should have beer to sell from homer"
+    end
+
+    it 'get /home as Homer' do
+      get '/home', {}, 'rack.session' => { :name => 'Homer' }
+      assert last_response.ok?
+      assert last_response.body.include?('We salute you Homer'), "Should salute homer"
+      assert last_response.body.include?('Skateboard, 100 Credits'), "Should have skateboard to sell from bart"
     end
   end
 end
