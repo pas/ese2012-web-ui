@@ -5,8 +5,11 @@
     %li{:class => nil}
       #{item.name}, #{item.price} Credits,
       - if item.is_active?
-        %a{:href=>"/buy?seller=#{user.name}&product=#{item.name}&buyer=#{name}"}
-          (Buy)
+        %form(action="/buy" method="POST" )
+          %input(type = 'hidden' name = 'product'){ :value => item.name }
+          %input(type = 'hidden' name = 'seller'){ :value => user.name }
+          %input(type = 'hidden' name = 'buyer'){ :value => name }
+          %input(type = 'submit' value = 'Buy')
       - else
         %i
           (inactive)

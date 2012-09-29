@@ -87,6 +87,7 @@
       self.credits += item.price
       self.items.delete(item)
       item.owner = buyer
+      item.deactivate()
       buyer.add_item(item)
 
       self.invariant

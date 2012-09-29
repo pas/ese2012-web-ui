@@ -9,5 +9,9 @@
           #{item.name}, #{item.price} Credits from
           %a{:href=>item.owner.name}#{item.owner.name}
           ,
-          %a{:href => "/buy?buyer=#{user.name}&product=#{item.name}&seller=#{seller.name}"} (Buy)
+          %form(action="/buy" method="POST" )
+            %input(type = 'hidden' name = 'product'){ :value => item.name }
+            %input(type = 'hidden' name = 'seller'){ :value => seller.name }
+            %input(type = 'hidden' name = 'buyer'){ :value => user.name }
+            %input(type = 'submit' value = 'Buy')
 %a{:href => "/logout"} Logout

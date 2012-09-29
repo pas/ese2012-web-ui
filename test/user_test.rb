@@ -82,6 +82,17 @@ class UserTest < Test::Unit::TestCase
     assert(frodo.credits == 150, 'Frodo should get 50 credits')
   end
 
+  def test_should_inactive_when_sold
+    sam = User.named('Sam', 'sam')
+    frodo = User.named('Frodo', 'frodo')
+
+    frodo.create_item('ring', 50)
+    frodo.offer('ring')
+    frodo.sell('ring', sam)
+
+    assert(!sam.sells?('ring'), 'Sam should not offer ring after trade')
+  end
+
   def test_shouldnt_buy_money
     sam = User.named('Sam', 'sam')
     frodo = User.named('Frodo', 'frodo')
