@@ -1,18 +1,22 @@
-%h1 We salute you #{user.name}!
-%h2 You have got #{user.credits} Credits
+%html
+  %head
+    %link{:rel => "stylesheet", :type => "text/css", :href => "default.css", :media => "all"}
+  %body
+    %h1 We salute you #{user.name}!
+    %h2 You have got #{user.credits} Credits
 
-%ul
-  - for seller in users
-    - unless seller.name == user.name
-      - for item in seller.offers
-        %li{:class => nil}
-          #{item.name}, #{item.price} Credits from
-          %a{:href=>item.owner.name}#{item.owner.name}
-          ,
-          %form(action="/buy" method="POST" )
-            %input(type = 'hidden' name = 'product'){ :value => item.name }
-            %input(type = 'hidden' name = 'seller'){ :value => seller.name }
-            %input(type = 'hidden' name = 'buyer'){ :value => user.name }
-            %input(type = 'submit' value = 'Buy')
-%a{:href => "/logout"} Logout
-%a{:href => "/items"} my items
+    %ul
+      - for seller in users
+        - unless seller.name == user.name
+          - for item in seller.offers
+            %li{:class => nil}
+              #{item.name}, #{item.price} Credits from
+              %a{:href=>item.owner.name}#{item.owner.name}
+              ,
+              %form(action="/buy" method="POST" )
+                %input(type = 'hidden' name = 'product'){ :value => item.name }
+                %input(type = 'hidden' name = 'seller'){ :value => seller.name }
+                %input(type = 'hidden' name = 'buyer'){ :value => user.name }
+                %input(type = 'submit' value = 'Buy')
+    %a{:href => "/logout"} Logout
+    %a{:href => "/items"} my items

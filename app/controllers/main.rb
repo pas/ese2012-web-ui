@@ -5,7 +5,6 @@ require 'haml'
 require '../app/models/user'
 
 class Main < Sinatra::Application
-
   before do
     redirect '/login' unless session[:name]
   end

@@ -7,6 +7,7 @@ require '../app/controllers/authentication'
 require 'haml'
 
 class App < Sinatra::Base
+  set :public_folder, '/public'
 
   use Authentication
   use Main
