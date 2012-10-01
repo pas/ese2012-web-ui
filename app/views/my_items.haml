@@ -3,8 +3,11 @@
 
 %ul
   - for item in items
-    %li #{item.name} (<i>#{item.price} Credits</i>)
-    status: #{item.is_active? ? "active": "inactive"}
+    %li
+      #{item.name}
+      %i
+        #{item.price} Credits
+      <br>status: #{item.is_active? ? "active": "inactive"}
 
 %a{:href => "/logout"} Logout
 %a{:href => "/home"} home

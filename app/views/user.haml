@@ -3,7 +3,9 @@
 %ul
   - for item in user.items
     %li{:class => nil}
-      #{item.name}, #{item.price} Credits,
+      #{item.name}
+      %i
+        #{item.price} Credits
       - if item.is_active?
         %form(action="/buy" method="POST" )
           %input(type = 'hidden' name = 'product'){ :value => item.name }
@@ -11,6 +13,6 @@
           %input(type = 'hidden' name = 'buyer'){ :value => name }
           %input(type = 'submit' value = 'Buy')
       - else
-        %i
-          (inactive)
+        <br>status: inactive
 %a{:href => "/logout"} Logout
+%a{:href => "/home"} home
