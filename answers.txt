@@ -1,1 +1,16 @@
-Here are our solutions to the questions:
+
+1. Explain how a typical HTTP request is processed with the framework (the request lifecycle)
+
+- HTTP request is received by the framework.
+- the router component tries to find the most specific route able to accept this request. The corresponding action method is then invoked.
+- application code is executed.
+- if a complex view needs to be generated, a template file is rendered.
+- the result of the action method is then written as an HTTP response
+
+2. Why should GET request be indempotent?
+
+indempotent means, that the state of the server doesn't change with a ('get') request. If a 'get' request does however change the state of the server, problems can arise, because anyone (or anything) that makes an 'get' request thinks that this request will not change anything. But if for example a 'delet' request is accidently done by an 'get' request, everything will be deleted by the google spider, because it follows all 'get' links. 
+
+3. Where should you format data for rendering?
+
+How should I know?
