@@ -1,10 +1,11 @@
 require 'rubygems'
 require 'sinatra'
-require 'require_relative'
-require '../app/models/user'
-require '../app/controllers/main'
-require '../app/controllers/authentication'
 require 'haml'
+require 'require_relative'
+require_relative 'models/user'
+require_relative 'controllers/main'
+require_relative 'controllers/authentication'
+
 
 class App < Sinatra::Base
   set :public_folder, '/public'
@@ -15,14 +16,14 @@ class App < Sinatra::Base
   enable :sessions unless ENV['RACK_ENV'] == 'test'
 
   configure :development do
-    bart = User.named('Bart' , 'bart')
+    bart = User.named('Bart' , 'Bart')
     bart.create_item('Skateboard', 100)
     bart.create_item('Elephant', 150)
     bart.create_item('Knecht Ruprecht', 10)
     bart.offer('Elephant')
     bart.offer('Skateboard')
 
-    homer = User.named('Homer', 'homer')
+    homer = User.named('Homer', 'Homer')
     homer.create_item('Beer', 200)
     homer.create_item('Nuclear Crisis', 100)
     homer.create_item('Sofa', 50)

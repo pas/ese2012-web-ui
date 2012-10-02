@@ -1,6 +1,6 @@
   require 'rubygems'
   require 'require_relative'
-  require '../app/models/item'
+  require_relative 'item'
 
   # An instance of User represents a person that owns, sells or buys
   # Items of other Users.

@@ -1,8 +1,8 @@
 require 'rubygems'
-require 'require_relative'
 require 'sinatra'
 require 'haml'
-require '../app/models/user'
+require 'require_relative'
+require_relative '../models/user'
 
 class Main < Sinatra::Application
   before do

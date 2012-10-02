@@ -1,7 +1,14 @@
-h1 {    color: greenyellow;
-        background: lightgray;
+h1 {    color: white;
+        background: blue;
         padding: 1em;
     }
+h1:hover { background: #40e0d0;
+            padding-left: 3em;
+    }
+
+h1:active { background: #32cd32;
+            padding-left: 6em;
+          }
 
 li  {   padding-bottom: 0.5em }
 input { padding-bottom: 0em }
