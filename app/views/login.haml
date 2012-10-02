@@ -1,9 +1,13 @@
-%h1 Login
-%form( action="/login" method="POST" )
-  %label
-    Username
-    %input(type="text" name="username")
-  %label
-    Password
-    %input(type="password" name="password")
-  %input(type="submit" text="submit")
+%html
+  %head
+    %link{:rel => "stylesheet", :type => "text/css", :href => "default.css", :media => "all"}
+  %body
+    %h1 Login
+    %form( action="/login" method="POST" )
+      %label
+        Username
+        %input(type="text" name="username")
+      %label
+        Password
+        %input(type="password" name="password")
+      %input(type="submit" value="Login")
