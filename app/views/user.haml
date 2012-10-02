@@ -1,16 +1,22 @@
-%h1 #{user.name}'s treasures
+%html
+  %head
+    %link{:rel => "stylesheet", :type => "text/css", :href => "default.css", :media => "all"}
+  %body
+    %h1 #{user.name}'s treasures
 
-%ul
-  - for item in user.items
-    %li{:class => nil}
-      #{item.name}, #{item.price} Credits,
-      - if item.is_active?
-        %form(action="/buy" method="POST" )
-          %input(type = 'hidden' name = 'product'){ :value => item.name }
-          %input(type = 'hidden' name = 'seller'){ :value => user.name }
-          %input(type = 'hidden' name = 'buyer'){ :value => name }
-          %input(type = 'submit' value = 'Buy')
-      - else
-        %i
-          (inactive)
-%a{:href => "/logout"} Logout
+    %ul
+      - for item in user.items
+        %li{:class => nil}
+          #{item.name}
+          %i
+            #{item.price} Credits
+          - if item.is_active?
+            %form(action="/buy" method="POST" )
+              %input(type = 'hidden' name = 'product'){ :value => item.name }
+              %input(type = 'hidden' name = 'seller'){ :value => user.name }
+              %input(type = 'hidden' name = 'buyer'){ :value => name }
+              %input(type = 'submit' value = 'Buy')
+          - else
+            <br>status: inactive
+    %a{:href => "/logout"} Logout
+    %a{:href => "/home"} home

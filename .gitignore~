@@ -1,6 +1,6 @@
 .idea*
 *.2707.haml
 *.orig
-
+.gitignore~
 
 experiments

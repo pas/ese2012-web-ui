@@ -5,6 +5,12 @@
     %h1 Those are your treasures, #{user.name}!
     %h2 You have got #{items.size} items
 
+<<<<<<< HEAD
+%ul
+  - for item in items
+    %li #{item.name} (<i>#{item.price} Credits</i>)
+    status: #{item.is_active? ? "to sell": "not to sell"}
+=======
     %ul
       - for item in items
         %li
@@ -12,6 +18,7 @@
           %i
             #{item.price} Credits
           <br>status: #{item.is_active? ? "active": "inactive"}
+>>>>>>> 7c00232dd6ab91ccb828b95e6b683fd3246f1711
 
     %a{:href => "/logout"} Logout
     %a{:href => "/home"} home
