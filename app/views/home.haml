@@ -7,6 +7,8 @@
 
     %ul
       - for seller in users
+        -# It is on purpose that that active items of the current user are not shown, since it doesn't make sense to
+        -# buy your own stuff.
         - unless seller.name == user.name
           - for item in seller.offers
             %li{:class => nil}
