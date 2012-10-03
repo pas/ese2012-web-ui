@@ -11,4 +11,4 @@ h1:active { background: #32cd32;
           }
 
 li  {   padding-bottom: 0.5em }
-input { padding-bottom: 0em }
+input { padding-bottom: 0 }
